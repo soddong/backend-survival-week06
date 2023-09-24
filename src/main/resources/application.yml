@@ -1,9 +1,14 @@
 # 아래에 데이터베이스를 세팅해주세요. (포트 번호에 주의해주세요)
+logging:
+  level:
+    org.springframework.dbc: DEBUG
+
 spring:
   datasource:
-    url: URL
-    username: USERNAME
-    password: PASSWORD
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mydb
+    username: root
+    password: tvxq1226
 server:
   servlet:
     encoding:
@@ -11,17 +16,17 @@ server:
       force: true
 
 # 아래는 CI 를 위한 세팅으로 건드리시면 안됩니다.
----
-spring:
-  config:
-    activate:
-      on-profile: test
-  datasource:
-    url: jdbc:h2:mem:test
-    username: sa
-    password:
-server:
-  servlet:
-    encoding:
-      charset: UTF-8
-      force: true
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: test
+#  datasource:
+#    url: jdbc:h2:mem:test
+#    username: sa
+#    password:
+#server:
+#  servlet:
+#    encoding:
+#      charset: UTF-8
+#      force: true
