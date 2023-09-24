@@ -42,7 +42,12 @@ public class JdbcPostDao implements PostDao {
 
     @Override
     public void save(Post post) {
+        if (post.id() != null) {
+            updatePost(post);
+            return;
+        }
 
+        insertPost(post);
     }
 
     @Override
@@ -63,5 +68,32 @@ public class JdbcPostDao implements PostDao {
         );
 
         return post;
+    }
+
+    private void insertPost(Post post) {
+        String query = """
+            INSERT INTO posts (id, title, author, content) VALUES (?, ?, ?, ?)
+            """;
+
+        jdbcTemplate.update(
+                query,
+                PostId.generate().toString(),
+                post.title(),
+                post.author(),
+                post.content().toString()
+        );
+    }
+
+    private void updatePost(Post post) {
+        String query = """
+            UPDATE posts SET title=?, content=? WHERE id=?
+            """;
+
+        jdbcTemplate.update(
+                query,
+                post.title(),
+                post.content().toString(),
+                post.id().toString()
+        );
     }
 }

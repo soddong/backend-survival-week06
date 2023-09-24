@@ -15,6 +15,12 @@ public class Post {
         this.author = author;
         this.content = content;
     }
+    public Post(String title, String author, MultilineText content) {
+        this.title = title;
+        this.author = author;
+        this.content = content;
+    }
+
 
     public PostId id(){
         return id;
